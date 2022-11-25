@@ -5,7 +5,8 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 module.exports = {
     data: new SlashCommandBuilder()
     .setName("hug")
-    .setDescription("Hugs a user."),
+    .setDescription("Hugs a user.")
+    .addUserOption(option => option.setName('target').setDescription("The user to hug.") && option.setRequired(true)),
 
     async execute(interaction) {
 
@@ -14,7 +15,10 @@ module.exports = {
 
         const embed = new EmbedBuilder()
         .setColor(0x0099FF)
-        .setDescription()
-        await interaction.reply(data.url)
+        .setImage(data.url)
+        await interaction.reply({
+            content: `${interaction.options.getUser('target')}`, 
+            embeds: [embed]})
+        .catch(console.error)
     }
 }
