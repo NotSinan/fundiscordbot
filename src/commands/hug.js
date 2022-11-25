@@ -16,8 +16,9 @@ module.exports = {
         const embed = new EmbedBuilder()
         .setColor(0x0099FF)
         .setImage(data.url)
+        
         await interaction.reply({
-            content: `${interaction.options.getUser('target')}`, 
+            content: `${interaction.user} slaps ${interaction.options.getUser('target')}`, 
             embeds: [embed]})
         .catch(console.error)
     }
